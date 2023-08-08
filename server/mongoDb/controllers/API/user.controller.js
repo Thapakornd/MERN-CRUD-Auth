@@ -54,7 +54,6 @@ const updateById = async (req,res) => {
 
         // Updating information for Editor or Admin roles
         userExits.username = user;
-        userExits.email = email;
         userExits.roles = roles;
         userExits.AllProperties = allProperties;
         const result = await userExits.save();
