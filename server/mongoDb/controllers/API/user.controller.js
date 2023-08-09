@@ -12,13 +12,11 @@ const getAllUser = async (req,res) => {
 };
 
 const getById = async (req,res) => {
-    try {
-        const { user } = req.body;
-        
-        const data = await User.findOne({ username: user}).exec();
-        if (!data) return res.status(204).json({ message: "User not found!"});
-    
-        console.log(data);
+    try {  
+        const id = req.params.id;
+
+        const data = await User.findById(id).exec();
+        if(!data) return res.status(204).json({ message: "User not found!"});
 
         res.status(200).json(data);
     } catch (err) {
@@ -29,12 +27,12 @@ const getById = async (req,res) => {
 
 const delById = async (req,res) => {
     try {
-        const { user } = req.body;
+        const id = req.params.id;
         
-        const data = await User.findOne({ username: user}).exec();
+        const data = await User.findById( id ).exec();
         if (!data) return res.status(204).json({ message: "User not found!"});
     
-        const result = await User.deleteOne({ username: user });
+        const result = await User.deleteOne({ username: data.username });
         console.log(result);
 
         res.status(204).json({message: 'Delete successfully!'});
@@ -46,7 +44,7 @@ const delById = async (req,res) => {
 
 const updateById = async (req,res) => {
     try {
-        const { user , email, roles, allProperties, id } = req.body;
+        const { user , roles, allProperties, id } = req.body;
 
         const userExits = await User.findOne({ _id: id}).exec();
 

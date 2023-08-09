@@ -35,6 +35,9 @@ const createPost = async (req,res) => {
 const getPostByCurrentUser = async (req,res) => {
     try {
         const cookies = req.cookies;
+
+        console.log(req);
+        console.log(cookies);
         
         if(!cookies?.jwt) return res.status(401); // Unauthorized
 

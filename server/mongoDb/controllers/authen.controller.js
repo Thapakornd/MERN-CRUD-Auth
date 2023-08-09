@@ -1,5 +1,5 @@
 import User from "../models/User.model.js";
-import jwt, { verify } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 
@@ -43,7 +43,7 @@ const authLogin = async (req, res) => {
         if (!userExits) return res.status(404); // Not found a user or email in database
 
         // Evaluate password
-        const matchPwd = bcrypt.compare(pwd, userExits);
+        const matchPwd = bcrypt.compare(pwd, userExits.password);
 
         if (matchPwd) {
             const roles = Object.values(userExits.roles).filter(Boolean);

@@ -1,10 +1,13 @@
 import jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 
-const verifyJWT = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    if (!authHeader) return res.status(401);
+dotenv.config();
 
+const verifyJWT = (req, res, next) => {
+    const authHeader = req?.headers['authorization'];
+
+    if (!authHeader) return res?.status(401);
+    
     // Split for take jwt token in header authorization
     const token = authHeader.split(' ')[1];
 

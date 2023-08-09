@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Routes, Route} from 'react-router-dom';
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
+import Unauthorized from "./components/Unauthorized/Unauthorized";
+import LinkPage from "./components/LinkPage/LinkPage";
+import Missing from "./components/Missing/Missing";
+import PersistLogin from "./components/PersistLogin/PersistLogin";
+import Home from "./components/Home/Home";
+import Admin from "./components/Admin/Admin";
+import RequireAuth from "./components/RequireAuth/RequireAuth";
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <Routes>
+          {/* Public route */}
+          <Route path="/login" element={<Login />}/>
+          <Route path="/register" element={<Register />}/>
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/linkpage" element={<LinkPage />}/>
+
+          {/* Protect route */}
+          <Route element={<PersistLogin />}>
+            
+            <Route element={<RequireAuth />}>
+              <Route path="/" element={<Home />}/>
+            </Route>
+
+            <Route element={<RequireAuth />}>
+              <Route path="/admin" element={<Admin />}/>
+            </Route>
+
+          </Route>
+
+          {/* Catch missing */}
+          <Route path="*" element={<Missing />}/>
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -36,13 +36,12 @@ app.use('/users', userRouter);
 app.use('/posts', postRouter);
 
 // Connect to database (MongoDB)
-const startServer = () => {
+const startServer = async () => {
     try {
-        connectDb(process.env.ATLAS_URL).then(() => {
-            app.listen(PORT, () => {
-                console.log(`Connected to server at port ${PORT}`);
-            })
-        });
+        const result = await connectDb(process.env.ATLAS_URL);        
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+        })
         
     } catch (error) {
         console.log(error);

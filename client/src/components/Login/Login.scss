@@ -1,0 +1,39 @@
+.login{
+    max-width: 420px;
+    margin: 5% auto;
+    background-color: #444950;
+    border-radius: 25px;
+    padding: 25px;
+
+    h1{
+        color: lightgreen;
+    }
+
+    div{
+        padding: 5px;
+    }
+
+    .form{
+        padding: 10px;
+    }
+
+    .checkbox{
+        margin-left: 20px;
+    }
+
+    .submit{
+        
+        p{
+            padding-top: 10px;
+            
+            span{
+                padding: 10px;
+                
+                .signUp{
+                    color: lightgreen;
+                }
+            }
+        }
+    }
+
+}
