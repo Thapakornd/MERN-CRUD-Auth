@@ -5,12 +5,41 @@
     border-radius: 25px;
     padding: 25px;
 
+    .alert-success{
+        background-color: #051b11;
+        p{
+            margin-left: 5px;
+        }
+    }
+    .alert-color{
+        color: #75b798;
+    }
+
     h1{
         color: lightgreen;
     }
 
     div{
         padding: 5px;
+
+        #helpEmail{
+            color: rgb(107, 177, 107);
+        }
+
+        #helpPass{
+            color: rgb(107, 177, 107);
+        }
+        #helpUser{    
+            color: rgb(107, 177, 107);
+        }
+        #helpConfirm{
+            color: rgb(107, 177, 107);
+        }
+
+        .helpText{
+            border-radius: 10px;
+            background-color: #2e3236;
+        }
     }
 
     .form{
@@ -36,4 +65,8 @@
         }
     }
 
+}
+
+.offscreen{
+    display: none;
 }

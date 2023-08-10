@@ -1,0 +1,21 @@
+.link-page{
+    margin: 5% auto;
+    max-width: fit-content;
+    background-color: #444950;
+    border-radius: 25px;
+    padding: 25px;
+    
+    h1{
+        color: lightgreen;
+    }
+
+    .r-1{
+        padding-top: 15px;
+    
+        .link{
+            padding: 10px;
+            color: lightgreen;    
+        }
+    }
+
+}
