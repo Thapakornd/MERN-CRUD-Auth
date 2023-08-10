@@ -34,7 +34,14 @@ const Register = () => {
 
   // Check value input by regex
   useEffect(() => {
-    emailRef.current.focus();
+    let isMounted = true;
+
+    isMounted && emailRef.current.focus();
+    
+    return () => {
+      isMounted = false
+      isMounted && emailRef;
+    }
   }, []);
 
   useEffect(() => {
@@ -47,8 +54,8 @@ const Register = () => {
 
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
-    setValidMatch(pwd === matchPwd);
-  }, [pwd, matchPwd])
+    setValidMatch(pwd === matchPwd)
+  }, [pwd,matchPwd])
 
   // Function handle form submit
   const handleSubmit = async (e) => {
@@ -79,9 +86,9 @@ const Register = () => {
       if(!error?.response){
         setErrMsg('No Server Response');
       }else if (error?.response?.status === 409){
-        setErrMsg('No Server Response');  
+        setErrMsg('Username or Email Taken');  
       }else{
-        setErrMsg('No Server Response');
+        setErrMsg('Registration Failed');
       }
       errRef.current.focus();
     }
@@ -97,15 +104,16 @@ const Register = () => {
             </Alert.Heading>
             <p className="alert-color">You can login with this link.</p>
             <hr className="alert-color" />
-            <div className="d-flex">
+            <div className="d-flex ">
               <Button variant="outline-success">
-                <Link to={'/login'} >Sign In</Link>
+                <Link to={'/login'} className="alert-color">Sign In</Link>
               </Button>
             </div>
           </Alert>
         ) : (
           <p></p>
         )}
+        <p ref={errRef} className={errMsg ? "" : "offscreen"}>{errMsg}</p>
         <h1>Register</h1>
         <div>
           <Form>
@@ -123,7 +131,7 @@ const Register = () => {
                   onFocus={() => setEmailFocus(true)}
                   onBlur={() => setEmailFocus(false)}
                 />
-                <div className={`helpText ${emailFocus && email && !validEmail ? "" : "offscreen"}`}>
+                <div className={`helpText ${email && !validEmail ? "" : "offscreen"}`}>
                   <Form.Text id="helpEmail">
                     Please include an <span aria-label="at symbol">@</span>{" "}
                     in the email address.
@@ -144,7 +152,7 @@ const Register = () => {
                   onBlur={() => setUserFocus(false)}
                   aria-describedby="helpUser"
                 />
-                <div className={`helpText ${userFocus && user && !validUser ? "" : "offscreen"}`}>
+                <div className={`helpText ${user && !validUser ? "" : "offscreen"}`}>
                   <Form.Text id="helpUser">
                     4 to 24 characters.
                     <br />
@@ -160,9 +168,15 @@ const Register = () => {
                   type="password"
                   placeholder="type your password"
                   required
+                  aria-invalid={validPwd ? "false" : "true"}
                   aria-describedby="helpPass"
+                  value={pwd}
+                  onChange={(e) => setPwd(e.target.value)}
+                  onFocus={() => setPwdFocus(true)}
+                  onBlur={() => setPwdFocus(false)}
+                  autoComplete="off"
                 />
-                <div className={`helpText ${pwdFocus && pwd && !validPwd ? "" : "offscreen"}`}>
+                <div className={`helpText ${pwd && !validPwd ? "instruction" : "offscreen"}`}>
                   <Form.Text id="helpPass">
                     8-24 characters. <br />
                     Must include uppercase and lowercase letters, a number and a
@@ -184,8 +198,12 @@ const Register = () => {
                   placeholder="type confirm password"
                   required
                   aria-describedby="helpConfirm"
+                  value={matchPwd}
+                  onChange={(e) => setMatchPwd(e.target.value)}
+                  onFocus={() => setMatchFocus(true)}
+                  onBlur={() => setMatchFocus(false)}                 
                 />
-                <div className={`helpText ${matchFocus && matchPwd && !validMatch ? "" : "offscreen"}`}>
+                <div className={`helpText ${matchPwd && !validMatch ? "" : "offscreen"}`}>
                   <Form.Text id="helpConfirm">
                     Must match the first password input field.
                   </Form.Text>
@@ -194,7 +212,7 @@ const Register = () => {
             </Form.Group>
           </Form>
           <div className="submit">
-            <Button variant="success" onClick={handleSubmit} disabled={!validEmail || !validUser || !validPwd || !validMatch ? true : false}>Sign In</Button>
+            <Button variant="success" onClick={handleSubmit} disabled={(!validEmail || !validUser || !validPwd || !validMatch) ? true : false}>Sign In</Button>
             <p>
               Already registered?
               <span>

@@ -24,6 +24,7 @@ const createUser = async (req,res) => {
             email: email,
             username: user,
             password: hashedPwd,
+            refreshToken: ""
         })
     
         console.log(result);

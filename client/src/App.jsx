@@ -12,6 +12,13 @@ import Home from "./components/Home/Home";
 import Admin from "./components/Admin/Admin";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
 import './App.css';
+import Editor from "./components/Editor/Editor";
+
+const ROLES_LIST = {
+  'Admin':5150,
+  'Editor': 1984,
+  'User': 2001
+}
 
 function App() {
 
@@ -28,12 +35,16 @@ function App() {
           {/* Protect route */}
           <Route element={<PersistLogin />}>
             
-            <Route element={<RequireAuth />}>
+            <Route element={<RequireAuth allowedRoles={ROLES_LIST.User} />}>
               <Route path="/" element={<Home />}/>
             </Route>
 
-            <Route element={<RequireAuth />}>
+            <Route element={<RequireAuth allowedRoles={ROLES_LIST.Admin} />}>
               <Route path="/admin" element={<Admin />}/>
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={ROLES_LIST.Editor} />}> 
+              <Route path="/editor" element={<Editor />} />
             </Route>
 
           </Route>
