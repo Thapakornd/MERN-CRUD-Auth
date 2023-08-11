@@ -5,10 +5,10 @@ import User from "../../models/User.model.js";
 const getAllPost = async (req,res) => {
     try {
         const data = await Post.find().exec();
-        res.status(200).json(data);
+        return res.status(200).json(data);
     } catch (error) {
         console.error.error;
-        res.status(400);
+        return res.status(400);
     }
 };
 
@@ -24,10 +24,10 @@ const createPost = async (req,res) => {
         })
 
         console.log(result);
-        res.status(200).json({result, message: 'Create post successfully!'});
+        return res.status(200).json({result, message: 'Create post successfully!'});
     } catch (error) {
         console.error.error;
-        res.status(400);   
+        return res.status(400);   
     }
 }
 
@@ -39,7 +39,7 @@ const getPostByCurrentUser = async (req,res) => {
         console.log(req);
         console.log(cookies);
         
-        if(!cookies?.jwt) return res.status(401); // Unauthorized
+        if(!cookies?.jwt) return res.status(401).send(); // Unauthorized
 
         const refreshToken = cookies.jwt;
 
@@ -49,10 +49,10 @@ const getPostByCurrentUser = async (req,res) => {
         
         console.log(allPost);
 
-        res.status(200).json( allPost );
+        return res.status(200).json( allPost );
     } catch (error) {
         console.error.error;
-        res.status(400).json({ message: 'Failed to fetch data to your interface!'})
+        return res.status(400).json({ message: 'Failed to fetch data to your interface!'})
     }
 }
 
@@ -63,12 +63,12 @@ const getPostById = async (req,res) => {
 
         const postExits = await Post.findById(id).exec();
 
-        if(!postExits) return res.status(204).json({ message: 'Content not found!'});
+        if(!postExits) return res.status(404).send();
 
-        res.status(200).json(postExits);
+        return res.status(200).json(postExits);
     } catch (error) {
         console.error.error;
-        res.status(400);
+        return res.status(400);
     }
 }
 
@@ -85,10 +85,10 @@ const updatePostById = async (req,res) => {
 
         console.log(result);
 
-        res.status(200).json(result);
+        return res.status(200).json(result);
     } catch (error) {
         console.error.error;
-        res.status(400);
+        return res.status(400);
     }
 }
 
@@ -98,16 +98,16 @@ const delPostById = async (req,res) => {
 
         const userExits = await Post.findById( userId ).exec();
 
-        if (!userExits) return res.status(204).json({ message: 'Not found post!'});
+        if (!userExits) return res.status(404).send();
 
         const result = await Post.deleteOne({ username: userExits.username });
 
         console.log(result);
 
-        res.status(200).json({ result, message: "Delete successfully!"});
+        return res.status(200).json({ result, message: "Delete successfully!"});
     } catch (error) {
         console.error.error;
-        res.status(400);
+        return res.status(400);
     }
 };
 

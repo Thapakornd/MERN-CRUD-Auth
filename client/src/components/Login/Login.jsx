@@ -26,10 +26,6 @@ const Login = () => {
     localStorage.setItem('persist', persist);
   }, [persist]);
 
-  useEffect(() => {
-    setErrMsg('')
-  }, [user, pwd]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 

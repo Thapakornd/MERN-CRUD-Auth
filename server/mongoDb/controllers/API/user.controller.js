@@ -4,10 +4,10 @@ const getAllUser = async (req,res) => {
     try {
         const data = await User.find().exec();
         console.log(data);
-        res.json(data);
+        res.status(200).json(data);
     } catch (error) {
         console.error.error;
-        res.status(400);
+        res.sendStatus(400);
     }
 };
 
@@ -16,7 +16,7 @@ const getById = async (req,res) => {
         const id = req.params.id;
 
         const data = await User.findById(id).exec();
-        if(!data) return res.status(204).json({ message: "User not found!"});
+        if(!data) return res.status(404).json({ message: "User not found!"});
 
         res.status(200).json(data);
     } catch (err) {
@@ -30,7 +30,7 @@ const delById = async (req,res) => {
         const id = req.params.id;
         
         const data = await User.findById( id ).exec();
-        if (!data) return res.status(204).json({ message: "User not found!"});
+        if (!data) return res.status(404).json({ message: "User not found!"});
     
         const result = await User.deleteOne({ username: data.username });
         console.log(result);
@@ -48,7 +48,7 @@ const updateById = async (req,res) => {
 
         const userExits = await User.findOne({ _id: id}).exec();
 
-        if (!userExits) return res.status(204).json({ message: "User not found!"});
+        if (!userExits) return res.status(404).json({ message: "User not found!"});
 
         // Updating information for Editor or Admin roles
         userExits.username = user;

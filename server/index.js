@@ -11,13 +11,17 @@ dotenv.config();
 const app = express();
 const PORT = 8000;
 
-app.use(express.json());
-
 // Handle options credentials check - before CORS! and fetch cookie
 app.use(credential);
 
 // Handle cross origin resource
 app.use(cors(corsOptions));
+
+// Middleware to handle urlencoded from data
+app.use(express.urlencoded({ extended: false }))
+
+// Middleware for json
+app.use(express.json());
 
 // Middleware for cookies
 app.use(cookieParser());
@@ -38,7 +42,7 @@ app.use('/posts', postRouter);
 // Connect to database (MongoDB)
 const startServer = async () => {
     try {
-        const result = await connectDb(process.env.ATLAS_URL);        
+        connectDb(process.env.ATLAS_URL);        
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
         })

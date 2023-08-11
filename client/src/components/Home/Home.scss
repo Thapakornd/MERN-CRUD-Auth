@@ -1,0 +1,23 @@
+.home{
+    display: flex;
+    flex-direction: column;
+    max-width: fit-content;
+    margin: 5% auto;
+    background-color: #444950;
+    padding: 40px;
+    border-radius: 25px;
+
+    h1{
+        color: rgb(117, 192, 117);
+    }
+
+    .link{
+        margin: 10px 0;
+        color: lightgreen;
+    }
+
+    .flexgrow{
+        margin: 20px auto 0;
+        
+    }
+}
