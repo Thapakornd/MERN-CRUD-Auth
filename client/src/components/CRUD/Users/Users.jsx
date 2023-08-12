@@ -27,9 +27,7 @@ const Users = () => {
           const response = await axiosPrivate.get("/users/", {
             signal: controller.signal,
           });
-          const data = response.data;
           setUsers(response.data);
-          console.log(data);
         } catch (error) {
           console.error.error;
           navigate("/login", { state: { from: location }, replace: true });
@@ -48,8 +46,13 @@ const Users = () => {
   return (
     <div className="users">
       <h3 className="text-success">Users List</h3>
-      <Table>
-        <TableHead>
+      <Table sx={{
+        margin: "30px auto",
+        backgroundColor: "white"
+      }}>
+        <TableHead sx={{
+          backgroundColor:"#e2e2e2"
+        }}>
           <TableCell align="right">#</TableCell>
           <TableCell align="center">Username</TableCell>
           <TableCell align="left">Email</TableCell>
@@ -61,15 +64,15 @@ const Users = () => {
           {users.length
             ? users.map((user,i) => (
               <TableRow key={i}>
-                <TableCell align="right">{i}</TableCell>
+                <TableCell align="right">{i+1}</TableCell>
                 <TableCell align="center">{user.username}</TableCell>
                 <TableCell align="left">{user.email}</TableCell>
                 <TableCell align="left">{user.roles.Users}</TableCell>
                 <TableCell align="left">{(user.AllProperties).length}</TableCell>
                 <TableCell align="center">
-                  <ButtonGroup color="primary" aria-label="outlined primary button group">
-                    <Button>Edit</Button>
-                    <Button>Del</Button>
+                  <ButtonGroup variant="outlined">
+                    <Button color="success">Edit</Button>
+                    <Button color="error">Del</Button>
                   </ButtonGroup>
                 </TableCell>
               </TableRow>

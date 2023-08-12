@@ -50,9 +50,11 @@ const Login = () => {
       console.log(roles);
       setUser('');
       setPwd('');
+
+      if( roles == 2001) return navigate("/lounge", { replace: true });
       
-      navigate(from, { replace: true });
-    } catch (err) {
+      navigate(from, {replace: true})
+      } catch (err) {
       if(!err?.response) {
         setErrMsg('No Server Response');
       }else if (err.response?.status === 400) {

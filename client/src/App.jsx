@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route, Outlet} from 'react-router-dom';
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Unauthorized from "./components/Unauthorized/Unauthorized";
@@ -14,6 +14,9 @@ import RequireAuth from "./components/RequireAuth/RequireAuth";
 import './App.css';
 import Editor from "./components/Editor/Editor";
 import Lounge from "./components/Lounge/Lounge";
+import CreatePost from "./components/CRUD/Posts/CreatePost";
+import UpdatePost from "./components/CRUD/Posts/UpdatePost";
+import SelfPost from "./components/CRUD/Posts/SelfPost";
 
 const ROLES_LIST = {
   'Admin':5150,
@@ -36,7 +39,7 @@ function App() {
           {/* Protect route */}
           <Route element={<PersistLogin />}>
             
-            <Route element={<RequireAuth allowedRoles={[ROLES_LIST.User, ROLES_LIST.Admin, ROLES_LIST.Editor]} />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin, ROLES_LIST.Editor]} />}>
               <Route path="/" element={<Home />}/>
             </Route>
 
@@ -44,13 +47,17 @@ function App() {
               <Route path="/admin" element={<Admin />}/>
             </Route>
 
-            <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Editor]} />}> 
+            <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Editor, ROLES_LIST.Admin]} />}> 
               <Route path="/editor" element={<Editor />} />
             </Route>
 
-            <Route path="/lounge" element={<Lounge />} />
+            <Route path="/createpost" element={<CreatePost />} />
+            <Route path="/selfpost" element={<SelfPost />} />
+            <Route path="/update/:id" element={<UpdatePost />} />
 
+            <Route path="/lounge" element={<Lounge />} />
           </Route>
+          
 
           {/* Catch missing */}
           <Route path="*" element={<Missing />}/>
