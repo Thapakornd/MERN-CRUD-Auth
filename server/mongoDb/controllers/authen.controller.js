@@ -131,7 +131,7 @@ const loggedOut = async (req, res) => {
 
     // Clear jwt cookie in website
     res.clearCookie("jwt");
-    return res.status(204);
+    return res.status(204).send();
   } catch (error) {
     console.error.error;
     return res.status(500);
@@ -157,6 +157,7 @@ const handleRefreshToken = async (req, res) => {
           return res.status(403);
 
         const roles = Object.values(userExits.roles);
+        const user = decoded.username;
         const accessToken = jwt.sign(
           {
             UserInfo: {
@@ -167,7 +168,8 @@ const handleRefreshToken = async (req, res) => {
           process.env.ACCESS_TOKEN_SECRET,
           { expiresIn: "4h" }
         );
-        return res.status(200).json({ roles, accessToken });
+        
+        return res.status(200).json({user ,roles, accessToken });
       }
     );
   } catch (error) {

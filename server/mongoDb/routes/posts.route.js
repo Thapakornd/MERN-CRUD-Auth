@@ -12,12 +12,8 @@ import ROLES_LIST from '../configs/rolesList.js';
 
 const router = express.Router();
 
-//router.use(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor)).get('/', getAllPost);
-//router.use(verifyRoles(ROLES_LIST.Admin)).delete('/del/:id', delPostById);
-
-//router.put('/update', updatePostById);
-//router.use(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor)).get('/roles/:id', getPostById);
-//router.get('/:id', getPostByCurrentUser);
-//router.post('/create', createPost);
+router.get('/', getAllPost);
+router.post('/create', createPost);
+router.get('/current', getPostByCurrentUser);
 
 export default router;

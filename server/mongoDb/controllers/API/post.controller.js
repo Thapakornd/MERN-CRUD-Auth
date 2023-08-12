@@ -4,6 +4,7 @@ import User from "../../models/User.model.js";
 // Get all post in database
 const getAllPost = async (req,res) => {
     try {
+        console.log("Testing")
         const data = await Post.find().exec();
         return res.status(200).json(data);
     } catch (error) {
@@ -17,11 +18,20 @@ const createPost = async (req,res) => {
     try {
         const { title, author, content } = req.body;
 
+        console.log(title, author, content);
+
+        const userExits = await User.findOne({ username: author}).exec();
+
+        if(!userExits) return res.status(204).send();
+
         const result = await Post.create({
             title: title,
             content: content,
-            author: author
+            author: userExits._id
         })
+
+        userExits.AllProperties.push(result._id);
+        userExits.save();
 
         console.log(result);
         return res.status(200).json({result, message: 'Create post successfully!'});
@@ -110,7 +120,6 @@ const delPostById = async (req,res) => {
         return res.status(400);
     }
 };
-
 
 export {
     getAllPost,
