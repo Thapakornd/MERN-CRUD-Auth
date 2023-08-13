@@ -43,6 +43,25 @@ const Users = () => {
     }
   }, []);
 
+  // Update
+  const handleUpdate = (id) => {
+    try {
+      navigate(`/updateuser/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // Delete
+  const handleDelete = async (id) => {
+    try {
+      const response = await axiosPrivate.delete(`/users/${id}`)
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="users">
       <h3 className="text-success">Users List</h3>
@@ -75,8 +94,8 @@ const Users = () => {
                 <TableCell align="left">{user.AllProperties.length}</TableCell>
                 <TableCell align="center">
                   <ButtonGroup variant="outlined">
-                    <Button color="success">Edit</Button>
-                    <Button color="error">Del</Button>
+                    <Button onClick={() => handleUpdate(user._id)} color="success">Edit</Button>
+                    <Button onClick={() => handleDelete(user._id)} color="error">Del</Button>
                   </ButtonGroup>
                 </TableCell>
               </TableRow>

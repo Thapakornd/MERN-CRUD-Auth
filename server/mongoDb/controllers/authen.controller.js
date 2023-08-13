@@ -27,7 +27,6 @@ const createUser = async (req, res) => {
       refreshToken: "",
     });
 
-    console.log(result);
     return res.status(200).json({ message: "Create user successfully!" });
   } catch (error) {
     return res
@@ -44,9 +43,6 @@ const authLogin = async (req, res) => {
     const userExits = await (
       User.findOne({ username: user }) || User.findOne({ email: user })
     ).exec();
-
-    console.log(userExits);
-    console.log(Boolean(!userExits));
 
     if (!userExits) return res.status(404).send(); // User not found
 
@@ -113,7 +109,6 @@ const loggedOut = async (req, res) => {
 
     // Is refreshToken in database?
     const foundUser = await User.findOne({ refreshToken: refreshToken }).exec();
-    console.log(foundUser);
 
     if (!foundUser) {
       res.clearCookie("jwt", {
@@ -127,7 +122,6 @@ const loggedOut = async (req, res) => {
     // Also delete refreshToken in database
     foundUser.refreshToken = "";
     const result = await foundUser.save();
-    console.log(result);
 
     // Clear jwt cookie in website
     res.clearCookie("jwt");

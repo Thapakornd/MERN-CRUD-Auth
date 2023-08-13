@@ -9,7 +9,6 @@ const Admin = () => {
       <div className="container">
         <div className="d-flex justify-content-between">
           <h1>Admin</h1>
-          <Button variant="contained" color="success">Create</Button>
         </div>
         <div className="mt-4 p-3 border-0 rounded bg-dark">
           <Users />

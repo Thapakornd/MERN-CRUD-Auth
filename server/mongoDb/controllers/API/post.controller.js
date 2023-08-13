@@ -4,7 +4,6 @@ import User from "../../models/User.model.js";
 // Get all post in database
 const getAllPost = async (req,res) => {
     try {
-        console.log("Testing")
         const data = await Post.find().exec();
         return res.status(200).json(data);
     } catch (error) {
@@ -17,8 +16,6 @@ const getAllPost = async (req,res) => {
 const createPost = async (req,res) => {
     try {
         const { title, author, content } = req.body;
-
-        console.log(title, author, content);
 
         const userExits = await User.findOne({ username: author}).exec();
 
@@ -33,7 +30,6 @@ const createPost = async (req,res) => {
         userExits.AllProperties.push(result._id);
         userExits.save();
 
-        console.log(result);
         return res.status(200).json({result, message: 'Create post successfully!'});
     } catch (error) {
         console.error.error;
@@ -46,9 +42,6 @@ const getPostByCurrentUser = async (req,res) => {
     try {
         const cookies = req.cookies;
 
-        console.log(req);
-        console.log(cookies);
-        
         if(!cookies?.jwt) return res.status(401).send(); // Unauthorized
 
         const refreshToken = cookies.jwt;
@@ -56,8 +49,6 @@ const getPostByCurrentUser = async (req,res) => {
         const userExits = await User.findOne({ refreshToken: refreshToken}).exec();
 
         const allPost = await Post.find({ author: userExits._id }).exec();
-        
-        console.log(allPost);
 
         return res.status(200).json( allPost );
     } catch (error) {
@@ -69,7 +60,7 @@ const getPostByCurrentUser = async (req,res) => {
 // Get post by ID
 const getPostById = async (req,res) => {
     try {
-        const { id } = req.params.id;
+        const { id } = req.params;
 
         const postExits = await Post.findById(id).exec();
 
@@ -93,8 +84,6 @@ const updatePostById = async (req,res) => {
             content: content
         })
 
-        console.log(result);
-
         return res.status(200).json(result);
     } catch (error) {
         console.error.error;
@@ -102,17 +91,26 @@ const updatePostById = async (req,res) => {
     }
 }
 
+
+// Delete post by id
 const delPostById = async (req,res) => {
     try {
-        const { userId } = req.body;
+        const { id } = req.params;
 
-        const userExits = await Post.findById( userId ).exec();
+        const postExits = await Post.findById(id).exec();
 
-        if (!userExits) return res.status(404).send();
+        if (!postExits) return res.status(404).send();
+    
+        // Delete from id
+        const result = await Post.deleteOne({ _id: id });
 
-        const result = await Post.deleteOne({ username: userExits.username });
-
-        console.log(result);
+        // Delete from user
+        const user_id = postExits.author;
+        const result_user = await User.updateOne({ _id: user_id}, {
+            $pullAll: {
+                AllProperties: [{_id: postExits._id}]
+            }
+        })
 
         return res.status(200).json({ result, message: "Delete successfully!"});
     } catch (error) {

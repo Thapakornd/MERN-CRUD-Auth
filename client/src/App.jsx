@@ -17,6 +17,7 @@ import Lounge from "./components/Lounge/Lounge";
 import CreatePost from "./components/CRUD/Posts/CreatePost";
 import UpdatePost from "./components/CRUD/Posts/UpdatePost";
 import SelfPost from "./components/CRUD/Posts/SelfPost";
+import UpdateUser from "./components/CRUD/Users/UpdateUser";
 
 const ROLES_LIST = {
   'Admin':5150,
@@ -51,9 +52,13 @@ function App() {
               <Route path="/editor" element={<Editor />} />
             </Route>
 
+            {/* Post handle route */}
             <Route path="/createpost" element={<CreatePost />} />
             <Route path="/selfpost" element={<SelfPost />} />
-            <Route path="/update/:id" element={<UpdatePost />} />
+            <Route path="/updatepost/:id" element={<UpdatePost />} />
+
+            {/* User handle route */}
+            <Route path="/updateuser/:id" element={<UpdateUser />} />
 
             <Route path="/lounge" element={<Lounge />} />
           </Route>

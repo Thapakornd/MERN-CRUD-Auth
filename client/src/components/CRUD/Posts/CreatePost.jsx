@@ -25,6 +25,7 @@ const CreatePost = () => {
         const response = await axiosPrivate.post('/posts/create',
             JSON.stringify({ title, author , content})
         )
+
         navigate('/lounge', { replace: true })
     } catch (error) {
         console.log(error)

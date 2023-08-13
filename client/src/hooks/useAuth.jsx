@@ -3,7 +3,6 @@ import AuthContext from "../context/AuthProvider";
 
 const useAuth = () => {
     const { auth } = useContext(AuthContext);
-    console.log(auth);
 
     // Use debug to check user logged in
     useDebugValue(auth, auth => auth?.user ? "Logged In" : "Logged Out");
