@@ -20,6 +20,9 @@ This project create for study about MERN stack and authenication with jsonwebtok
 ![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/9c3579ec-a007-48a2-9178-3340f8830599)
 ![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/5c198032-f00a-4ae6-939b-0e64b39ea88f)
 
+# Admin page
+![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/2f27a89c-63a8-4a16-a118-129daba653f7)
+
 # Website Function
 <ul>
   <li>Authentication with jwtoken</li>
