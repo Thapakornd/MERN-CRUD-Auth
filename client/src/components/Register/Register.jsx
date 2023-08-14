@@ -212,7 +212,7 @@ const Register = () => {
             </Form.Group>
           </Form>
           <div className="submit">
-            <Button variant="success" onClick={handleSubmit} disabled={(!validEmail || !validUser || !validPwd || !validMatch) ? true : false}>Sign In</Button>
+            <Button variant="success" onClick={handleSubmit} disabled={(!validEmail || !validUser || !validPwd || !validMatch) ? true : false}>Sign Up</Button>
             <p>
               Already registered?
               <span>
