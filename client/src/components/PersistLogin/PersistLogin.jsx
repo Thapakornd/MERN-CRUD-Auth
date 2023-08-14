@@ -14,7 +14,8 @@ const PersistLogin = () => {
 
     const verifyRefreshToken = async () => {
       try {
-        await refresh();
+        const response = await refresh();
+        console.log(response);
       } catch (error) {
         console.error.error;
       }
@@ -23,6 +24,7 @@ const PersistLogin = () => {
       }
     }
 
+    console.log(!auth?.accessToken);
     !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
 
     return () => {

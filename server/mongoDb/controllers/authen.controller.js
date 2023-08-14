@@ -137,7 +137,7 @@ const handleRefreshToken = async (req, res) => {
   try {
     const cookies = req.cookies;
 
-    if (!cookies?.jwt) return res.status(401); // Unauthorized
+    if (!cookies?.jwt) return res.status(401).send(); // Unauthorized
 
     const refreshToken = cookies.jwt;
 
@@ -148,7 +148,7 @@ const handleRefreshToken = async (req, res) => {
       process.env.REFRESH_TOKEN_SECRET,
       (err, decoded) => {
         if (err || decoded.username !== userExits.username)
-          return res.status(403);
+          return res.status(403).send();
 
         const roles = Object.values(userExits.roles);
         const user = decoded.username;
@@ -168,7 +168,7 @@ const handleRefreshToken = async (req, res) => {
     );
   } catch (error) {
     console.error.error;
-    return res.status(400);
+    return res.status(400).send();
   }
 };
 
