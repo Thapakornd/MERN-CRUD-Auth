@@ -11,17 +11,17 @@ This project create for study about MERN stack and authenication with jsonwebtok
 </ul>
 
 # Login page
-![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/c736fd8a-37da-4613-b8a6-5a830fd0d622)
+![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/80b77880-4049-42d3-9156-595dee77dfe1)
 
 # Rigster page
-![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/1b57e4fa-aa3f-4977-b960-28032c246d6f)
+![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/ea5bb869-9694-44dd-8445-4baf1b8186f0)
 
 # Lounge page
-![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/9c3579ec-a007-48a2-9178-3340f8830599)
-![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/5c198032-f00a-4ae6-939b-0e64b39ea88f)
+![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/359bd1aa-a0ed-4e5a-a807-e00917c1662b)
+![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/cd0be185-1d53-4ae0-b97a-a0d0def0cc2d)
 
 # Admin page
-![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/2f27a89c-63a8-4a16-a118-129daba653f7)
+![image](https://github.com/Thapakornd/MERN-CRUD-Auth/assets/89478647/1c036f11-013f-47c5-833c-f8366e5a8266)
 
 # Website Function
 <ul>
@@ -29,5 +29,5 @@ This project create for study about MERN stack and authenication with jsonwebtok
   <li>Create : User, Post</li>
   <li>Delete : User, Post</li>
   <li>Read : Uesr, Post</li>
-  <li>Update : User, Post<</li>
+  <li>Update : User, Post</li>
 </ul>
